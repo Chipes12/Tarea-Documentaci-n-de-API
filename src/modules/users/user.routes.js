@@ -58,7 +58,7 @@ router.get('/:id', controller.getOne);
  *                      type: String
  *       responses:
  *         201:
- *           description: User created
+ *           description: An object with the created user
  */
 router.post('/', controller.create);
 
@@ -85,7 +85,7 @@ router.post('/', controller.create);
  *                      type: String
  *       responses:
  *         200:
- *           description: logIn as a User
+ *           description: A String with the token of the session
  */
 router.post('/login', controller.logIn);
 

@@ -56,12 +56,10 @@ const controller = require('./channels.controller');
  *                  owner:
  *                      type: String
  *                  members:
- *                      type: [User]
- *                  messages:
- *                      type: [Message]
+ *                      type: Array
  *       responses:
  *         200:
- *           description: logIn as a User
+ *           description: An object with the data of the created channel
  */
  router.post('/', controller.create);
 
@@ -73,6 +71,10 @@ const controller = require('./channels.controller');
  *       - Channels
  *       description: Create an invitation link to a channel
  *       parameters:
+ *         - in: path
+ *           name: id
+ *           required: true
+ *           description: the unique channel id
  *         - in: body
  *           name: owner
  *           description: Only the owner of the channel can create an invitation link
@@ -85,10 +87,36 @@ const controller = require('./channels.controller');
  *                      type: String
  *       responses:
  *         200:
- *           description: the invitation link for the next 24 hours
+ *           description: A String with the invitation link for the next 24 hours
  */
  router.get('/:id/invite', controller.invite);
 
- router.post('/join/:id', controller.join);
+  /**
+ * @swagger
+ *   /api/channels/join/{id}:
+ *     put:
+ *       tags:
+ *       - Channels
+ *       description: enter a channel by invitation
+ *       parameters:
+ *         - in: path
+ *           name: id
+ *           required: true
+ *           description: the token of the channel
+ *         - in: body
+ *           name: user
+ *           description: user
+ *           schema:
+ *              type: object
+ *              required:
+ *                  - id_User
+ *              properties:
+ *                  id_User:
+ *                      type: String
+ *       responses:
+ *         200:
+ *           description: An object that has the channel with the new member
+ */
+ router.put('/join/:id', controller.join);
 module.exports = router;
 

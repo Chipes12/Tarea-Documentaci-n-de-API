@@ -61,7 +61,7 @@ const controller = require('./messages.controller');
  *                      type: String
  *       responses:
  *         201:
- *           description: Message created
+ *           description: An object with the created message
  */
     router.post('/', controller.create);
  
