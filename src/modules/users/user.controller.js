@@ -20,7 +20,7 @@ const UsersController = {
     create: (req, res) => {
         const user = new User();
         user.create(req.body).then(result => {
-            if(result) res.sendStatus(201);
+            if(result) res.send(result);
         }).catch(err => {res.send('El correo ya esta en uso')});
     },
     logIn: (req, res) => {
