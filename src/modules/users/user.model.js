@@ -1,6 +1,5 @@
 const Model = require('../../core/model');
 const jwt = require('jsonwebtoken');
-
 const tokenKey = process.env.TOKEN_KEY;
 
 class User extends Model {
@@ -13,14 +12,15 @@ class User extends Model {
                 if(!result){
                     let newUser = {
                         "name": body.name,
+                        "username": body.username,
                         "email": body.email,
                         "password" : body.password,
                         "role": 'mortal'
                     }
                     this.collection.insertOne(newUser);
-                    accept(newUser);
+                    accept(JSON.stringify({status: "Creado con exito"}));
                 }
-                reject();
+                reject('Correo ya en uso');
             });
         });
     }
@@ -35,9 +35,9 @@ class User extends Model {
                     let options = {
                         expiresIn: 60 * 60
                     }
-                    accept(jwt.sign(payload, tokenKey, options));
+                    accept(JSON.stringify({token : jwt.sign(payload, tokenKey, options)}));
                 }
-                reject();
+                else reject('Datos incorrectos');
             });
         });
     }

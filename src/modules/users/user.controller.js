@@ -21,13 +21,17 @@ const UsersController = {
         const user = new User();
         user.create(req.body).then(result => {
             if(result) res.send(result);
-        }).catch(err => {res.send('El correo ya esta en uso')});
+        }).catch(err => {
+            res.send({error: err});
+        });
     },
     logIn: (req, res) => {
         const user = new User();
         user.logIn(req.body).then(result => {
             if(result) res.send(result);
-        }).catch(err => {res.send('Credenciales incorrectas')});
+        }).catch(err => {
+            res.send({error: err});
+        });
     }
 }
 
